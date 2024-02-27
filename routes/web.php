@@ -27,7 +27,7 @@ Route::get('/category/make',[CategoryController::class, 'make'])->name('category
 
 Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
 
-//Route::get('category/{id}', [CategoryController::class, 'list'])->name('category.list');
+Route::get('category/list', [CategoryController::class, 'list'])->name('category.list');
 
 Route::delete('/category/{id}', [CategoryController::class, 'remove'])->name('category.remove');
 

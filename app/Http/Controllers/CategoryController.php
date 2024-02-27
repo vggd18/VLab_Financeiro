@@ -8,11 +8,9 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function main(Category $category)
+    public function main()
     {
-        $categories = $category->all();
-
-        return view('site.category.main', compact('categories'));
+        return view('site.category.main');
     }
     public function make()
     {
@@ -37,12 +35,11 @@ class CategoryController extends Controller
         return redirect()->route('category.main');
     }
 
-    /*public function list(Category $category, string|int $id)
+    public function list(Category $category)
     {
-        if($category = $category->find($id)){
-            return back();
-        }
-        return view('site.category.list', compact('category'));
+        $categories = $category->all();
+        
+        return view('site.category.list', compact('categories'));
     }
-    */
+    
 }
