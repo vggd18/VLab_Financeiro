@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,11 +20,15 @@ Route::get('/', function () {
     return view('site.index');
 });
 
-// USER ROUTES
-Route::get('/user', [UserController::class, 'main'])->name('user.main');
+// CATEGORY ROUTES
+Route::get('/category', [CategoryController::class, 'main'])->name('category.main');
 
-Route::get('/user/make',[UserController::class, 'make'])->name('user.make');
+Route::get('/category/make',[CategoryController::class, 'make'])->name('category.make');
 
-Route::post('/user', [UserController::class, 'store'])->name('user.store');
+Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
+
+//Route::get('category/{id}', [CategoryController::class, 'list'])->name('category.list');
+
+Route::delete('/category/{id}', [CategoryController::class, 'remove'])->name('category.remove');
 
 // DEV ROUTES
