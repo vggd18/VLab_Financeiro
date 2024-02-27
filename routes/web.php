@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// APP ROUTES
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('site.index');
 });
+
+// USER ROUTES
+Route::get('/user', [UserController::class, 'main'])->name('user.main');
+
+Route::get('/user/make',[UserController::class, 'make'])->name('user.make');
+
+Route::post('/user', [UserController::class, 'store'])->name('user.store');
+
+// DEV ROUTES
