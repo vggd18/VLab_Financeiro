@@ -35,12 +35,16 @@ Route::post('/transaction', [TransactionController::class, 'create'])->name('tra
 
 Route::delete('/transaction/{id}', [TransactionController::class, 'remove'])->name('transaction.remove');
 
+Route::get('/transaction', [TransactionController::class, 'show'])->name('transaction.show');
+
+Route::get('/transaction/filter', [TransactionController::class, 'filter'])->name('transaction.filter');
+
 
 // USER ROUTES
-Route::get('/user/{id}', [UserController::class, 'main'])->name('user.main');
+Route::post('/user', [UserController::class, 'create'])->name('user.create');
 
-Route::get('/user/{id}/create', [UserController::class, 'create'])->name('user.create');
+Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
 
-Route::get('/user/{id}/remove', [UserController::class, 'remove'])->name('user.remove');
+Route::delete('/user/{id}', [UserController::class, 'remove'])->name('user.remove');
 
 // DEV ROUTES

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
@@ -17,7 +18,7 @@ class TransactionController extends Controller
         if (!$transaction) {
             return back()->json(['message' => 'Transaction creation failed'], 500);
         }
-        return response()->json(['message' => 'Transaction created successfully'], 201);
+        return response()->json(['message' => 'Transaction created successfully'], 200);
     }
 
     public function remove(string|int $id)
@@ -31,4 +32,22 @@ class TransactionController extends Controller
         
         return response()->json(['message' => 'Transaction removed successfully'], 200);
     }
+
+    public function show()
+    {
+        $transaction = Transaction::all();
+
+        return response()->json($transaction);
+    }
+
+    public function filter(Request $req)
+    {   
+        $column = $req->column;
+        $value = $req->value;
+
+        $transaction = DB::table('transactions')->where($column, '=', $value)->get();
+
+        return response()->json($transaction);
+    }
+
 }

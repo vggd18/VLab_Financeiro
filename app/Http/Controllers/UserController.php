@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pessoa;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
@@ -10,30 +11,48 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     //
-    public function main(Request $request)
+    public function create(Request $request, Pessoa $pessoa)
     {
-        $transactions = DB::table('transaction')
-                                ->where('user', '=', $request)
-                                ->get();
-        
-        return view('user.main', compact('request', 'transactions'));
+        $data = $request->all();
+        $pessoa = $pessoa->create($data);
+
+        if(!$pessoa){
+            return back()->json(['message' => 'User create failed', 500]);
+        }
+        return response()->json(['message' => 'User created successfuly', 200]);
     }
 
-    public function create(Request $request, Category $category)
+    public function update(Request $request)
     {
-        $categories = $category->all();
-        
-        return view('user.create', compact('request', 'categories'));
+        $id = $request->id;
+        $user = Pessoa::find($id);
+
+        if($request->has('full_name')){
+            $user->full_name = $request->full_name;
+        }
+        if($request->has('cpf')){
+            $user->cpf = $request->cpf;
+        }
+        if($request->has('email')){
+            $user->email = $request->email;
+        }
+        if($request->has('password')){
+        $user->password = $request->password;
+        }
+        $user->save();
+
+        return response()->json($user);
     }
 
-    public function remove(Request $request, Category $category)
-    {
-        $transactions = DB::table('transaction')
-                                ->where('user', '=', $request)
-                                ->get();
-        
-        $categories = $category->all();
 
-        return view('user.remove', compact('transactions', 'category'));
+    public function remove(string|int $id)
+    {
+        if(!$pessoa = Pessoa::find($id)){
+            return back()->json(['message' => 'User remove failed', 500]);
+        }
+
+        $pessoa->delete();
+
+        return response()->json(['message' => 'User removed successfuly', 200]);
     }
 }

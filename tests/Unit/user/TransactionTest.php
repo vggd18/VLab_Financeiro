@@ -4,17 +4,11 @@ namespace Tests\Unit\user;
 
 use App\Models\Category;
 use App\Models\Pessoa;
+use App\Models\Transaction;
 use Tests\TestCase;
 
 class TransactionTest extends TestCase
 {
-    /**
-     * A basic unit test example.
-     */
-    public function test_example(): void
-    {
-        $this->assertTrue(true);
-    }
     // CREATE FUNCTION TESTS
     public function test_create_transaction_succesfully()
     {
