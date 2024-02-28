@@ -17,12 +17,11 @@ class Transaction extends Model
         'category'
     ];
 
-    /*
     public function user() :BelongsTo
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
     }
-    */
+
     public function category():BelongsTo
     {
         return $this->belongsTo(Category::class);

@@ -16,9 +16,13 @@ return new class extends Migration
             $table->id();
             $table->string('type');
             $table->float('value');
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->unsignedBigInteger('user');
+            $table->string('category');
             $table->timestamps();
+
+            // FOREIGN KEYS
+            $table->foreign('category')->references('name')->on('categories');
+            $table->foreign('user')->references('id')->on('users');
         });
     }
 
