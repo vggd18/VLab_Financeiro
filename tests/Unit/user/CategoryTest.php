@@ -3,20 +3,10 @@
 namespace Tests\Unit;
 
 use App\Models\Category;
-use App\Models\Pessoa;
-use App\Models\Transaction;
 use Tests\TestCase;
 
 class CategoryTest extends TestCase
 {
-    /**
-     * A basic unit test example.
-     */
-    public function test_example(): void
-    {
-        $this->assertTrue(true);
-    }
-
     public function test_create_category_succesffuly()
     {
         $response = $this->post('/category', ['name' => 'internacional']);
