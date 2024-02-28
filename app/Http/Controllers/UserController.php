@@ -19,9 +19,11 @@ class UserController extends Controller
         return view('user.main', compact('request', 'transactions'));
     }
 
-    public function create(Request $request)
+    public function create(Request $request, Category $category)
     {
-        return view('user.create', compact('request'));
+        $categories = $category->all();
+        
+        return view('user.create', compact('request', 'categories'));
     }
 
     public function remove(Request $request, Category $category)

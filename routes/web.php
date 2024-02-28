@@ -35,8 +35,6 @@ Route::delete('/category/{id}', [CategoryController::class, 'remove'])->name('ca
 
 // TRANSACTION ROUTES
 
-Route::get('/transaction', [TransactionController::class, 'main'])->name('transaction.main');
-
 Route::post('/transaction', [TransactionController::class, 'create'])->name('transaction.create');
 
 Route::delete('/transaction/{id}', [TransactionController::class, 'remove'])->name('transaction.remove');

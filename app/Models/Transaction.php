@@ -11,15 +11,15 @@ class Transaction extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
         'type',
         'value',
+        'user',
         'category'
     ];
 
-    public function user() :BelongsTo
+    public function pessoa() :BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Pessoa::class);
     }
 
     public function category():BelongsTo

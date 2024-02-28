@@ -14,15 +14,15 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
-            $table->float('value');
-            $table->unsignedBigInteger('user');
-            $table->string('category');
+            $table->string('type')->nullable(false);
+            $table->float('value')->nullable(false);
+            $table->unsignedBigInteger('user')->nullable(false);
+            $table->string('category')->nullable(false);
             $table->timestamps();
 
             // FOREIGN KEYS
             $table->foreign('category')->references('name')->on('categories');
-            $table->foreign('user')->references('id')->on('users');
+            $table->foreign('user')->references('id')->on('pessoas');
         });
     }
 
