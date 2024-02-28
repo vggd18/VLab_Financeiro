@@ -36,7 +36,7 @@ class TransactionTest extends TestCase
         ]);
 
         //  Assert that the response status is not successful 
-        $response->assertStatus(204);
+        $response->assertCreated();
     }
 
     public function test_create_transaction_fail_due_to_nonexist_category()
@@ -97,7 +97,7 @@ class TransactionTest extends TestCase
     {
         $response = $this->delete('/transaction/1');
 
-        $response->assertStatus(205);
+        $response->assertOk();
     }
 
     public function test_transaction_fail_removal()

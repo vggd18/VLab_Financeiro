@@ -17,7 +17,7 @@ class TransactionController extends Controller
         if (!$transaction) {
             return back()->json(['message' => 'Transaction creation failed'], 500);
         }
-        return response()->json(['message' => 'Transaction created successfully'], 204);
+        return response()->json(['message' => 'Transaction created successfully'], 201);
     }
 
     public function remove(string|int $id)
@@ -29,6 +29,6 @@ class TransactionController extends Controller
 
         $transaction->delete();
         
-        return response()->json(['message' => 'Transaction removed successfully'], 205);
+        return response()->json(['message' => 'Transaction removed successfully'], 200);
     }
 }

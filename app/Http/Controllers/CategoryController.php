@@ -5,41 +5,36 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Mockery\Undefined;
 
 class CategoryController extends Controller
 {
-    public function main()
+    public function show()
     {
-        return view('site.category.main');
-    }
-    public function make()
-    {
-        return view('site.category.make');
+        $categories = Category::all();
+        
+        return response()->json($categories);
     }
 
-    public function store(Request $request, Category $category)
+    public function create(Request $request, Category $category)
     {
         $data = $request->all();
         $category = $category->create($data);
-        return redirect()->route('category.main');
+
+        if(!$category){
+            return back()->json(['message' => 'category create failed', 500]);
+        }
+        return response()->json(['message' => 'category created successfuly', 201]);
     }
 
     public function remove(string|int $id)
     {
         if(!$category = Category::find($id)){
-            return back();
+            return back()->json(['message' => 'category remove failed', 500]);
         }
 
         $category->delete();
 
-        return redirect()->route('category.main');
+        return response()->json(['message' => 'category removed successfuly', 200]);
     }
-
-    public function list(Category $category)
-    {
-        $categories = $category->all();
-        
-        return view('site.category.list', compact('categories'));
-    }
-    
 }

@@ -23,13 +23,9 @@ Route::get('/', function () {
 });
 
 // CATEGORY ROUTES
-Route::get('/category', [CategoryController::class, 'main'])->name('category.main');
+Route::get('/category', [CategoryController::class, 'show'])->name('category.show');
 
-Route::get('/category/make',[CategoryController::class, 'make'])->name('category.make');
-
-Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
-
-Route::get('/category/list', [CategoryController::class, 'list'])->name('category.list');
+Route::post('/category', [CategoryController::class, 'create'])->name('category.create');
 
 Route::delete('/category/{id}', [CategoryController::class, 'remove'])->name('category.remove');
 
