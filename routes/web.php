@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,8 +29,24 @@ Route::get('/category/make',[CategoryController::class, 'make'])->name('category
 
 Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
 
-Route::get('category/list', [CategoryController::class, 'list'])->name('category.list');
+Route::get('/category/list', [CategoryController::class, 'list'])->name('category.list');
 
 Route::delete('/category/{id}', [CategoryController::class, 'remove'])->name('category.remove');
+
+// TRANSACTION ROUTES
+
+Route::get('/transaction', [TransactionController::class, 'main'])->name('transaction.main');
+
+Route::post('/transaction', [TransactionController::class, 'create'])->name('transaction.create');
+
+Route::delete('/transaction/{id}', [TransactionController::class, 'remove'])->name('transaction.remove');
+
+
+// USER ROUTES
+Route::get('/user/{id}', [UserController::class, 'main'])->name('user.main');
+
+Route::get('/user/{id}/create', [UserController::class, 'create'])->name('user.create');
+
+Route::get('/user/{id}/remove', [UserController::class, 'remove'])->name('user.remove');
 
 // DEV ROUTES
