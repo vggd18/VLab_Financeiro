@@ -21,8 +21,8 @@ return new class extends Migration
             $table->timestamps();
 
             // FOREIGN KEYS
-            $table->foreign('category')->references('name')->on('categories');
-            $table->foreign('user')->references('id')->on('pessoas');
+            $table->foreign('category')->references('name')->on('categories')->onDelete('set null');
+            $table->foreign('user')->references('id')->on('pessoas')->onDelete('set null');
         });
     }
 
