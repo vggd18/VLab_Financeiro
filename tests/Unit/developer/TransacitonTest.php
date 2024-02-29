@@ -7,14 +7,18 @@ use App\Models\{
     Pessoa,
     Transaction
 };
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class TransacitonTest extends TestCase
 {
     /**
-     * A basic unit test example.
-     */
+    * TESTES PARA VERIFICAR CADA FUNCIONALIDADE 
+    * DAS TRANSAÇÕES QUE O DESENVOLVEDOR TEM PERMISSÃO
+    */
+     use RefreshDatabase;
     
+    // SHOW TESTS
      public function test_transaction_list_all()
      {
         $pessoa = Pessoa::create([
