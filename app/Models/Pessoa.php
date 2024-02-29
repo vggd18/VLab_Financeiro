@@ -15,7 +15,8 @@ class Pessoa extends Model
         'cpf',
         'reg_date',
         'email',
-        'password'
+        'password',
+        'perfil'
     ];
 
     public function transaction():HasMany

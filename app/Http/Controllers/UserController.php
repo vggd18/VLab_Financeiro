@@ -10,10 +10,13 @@ class UserController extends Controller
 {
     // CRIAR A TABELA DE USUÁRIO
     public function create(Request $request, Pessoa $pessoa)
-    {
+    {   
+        // ATUALIZAR
+        if($request->user()->authorize('createProfile', Pessoa::class)){
+            abort(403);
+        }
         $data = $request->all();
-        $pessoa = $pessoa->create($data);
-    
+        $pessoa = $pessoa->create($data);    
         if(!$pessoa){
             return response()->json(['message' => 'User create failed'], 500);
         }

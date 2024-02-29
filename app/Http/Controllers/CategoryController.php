@@ -18,6 +18,8 @@ class CategoryController extends Controller
 
     public function create(Request $request, Category $category)
     {
+
+
         $data = $request->all();
         $category = $category->create($data);
 

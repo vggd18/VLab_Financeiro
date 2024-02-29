@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamp('reg_date');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('perfil');
             $table->timestamps();
         });
     }
