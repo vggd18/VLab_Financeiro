@@ -22,7 +22,7 @@ return new class extends Migration
 
             // FOREIGN KEYS
             $table->foreign('category')->references('name')->on('categories');
-            $table->foreign('user')->references('id')->on('pessoas');
+            $table->foreign('user')->references('id')->on('users');
         });
     }
 
