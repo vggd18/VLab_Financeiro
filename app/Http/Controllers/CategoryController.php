@@ -22,19 +22,19 @@ class CategoryController extends Controller
         $category = $category->create($data);
 
         if(!$category){
-            return back()->json(['message' => 'category create failed', 500]);
+            return back()->json(['message' => 'Category create failed', 500]);
         }
-        return response()->json(['message' => 'category created successfuly', 201]);
+        return response()->json(['message' => 'Category created successfuly', 201]);
     }
 
     public function remove(string|int $id)
     {
         if(!$category = Category::find($id)){
-            return back()->json(['message' => 'category remove failed', 500]);
+            return back()->json(['message' => 'Category remove failed', 500]);
         }
 
         $category->delete();
 
-        return response()->json(['message' => 'category removed successfuly', 200]);
+        return response()->json(['message' => 'Category removed successfuly', 200]);
     }
 }

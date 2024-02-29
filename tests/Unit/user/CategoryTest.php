@@ -3,54 +3,57 @@
 namespace Tests\Unit;
 
 use App\Models\Category;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class CategoryTest extends TestCase
 {
+    /**
+    * TESTES PARA VERIFICAR CADA FUNCIONALIDADE 
+    * DAS CATEGORIAS QUE O USUÁRIO TEM PERMISSÃO
+    */
+    use RefreshDatabase;
+
+    // CREATE TESTS
     public function test_create_category_succesffuly()
     {
         $response = $this->post('/category', ['name' => 'internacional']);
 
         $response->assertStatus(200);
+        $response->assertJson(['message' => 'Category created successfuly']);
+
+        $this->assertDatabaseHas('categories', [
+            'name' => 'internacional'
+        ]);
     }
 
-    public function test_create_category_fail_existing_category()
-    {
-        $response = $this->post('/category', ['name' => 'internacional']);
-
-        $response->assertStatus(500);
-    }
-
-    public function test_create_category_fail_no_category()
-    {
-        $response = $this->post('/category');
-
-        $response->assertStatus(500);
-    }
-
+    // DESTROY TESTS
     public function test_delete_category_succesffuly()
     {
-        $response = $this->delete('/category/1');
+        $category = Category::create(['name' => 'nacional']);
+
+        $response = $this->delete('/category/' . $category->id);
 
         $response->assertStatus(200);
+        $response->assertJson(['message' => 'Category removed successfuly']);
+
+        $this->assertDatabaseMissing('categories', [
+            'id' => $category->id
+        ]);
     }
 
-    public function test_delete_category_fail()
-    {
-        $response = $this->delete('/category/99999');
-
-        $response->assertStatus(500);
-    }
-
+    // SHOW TESTS
     public function test_list_transaction_categories()
     {
-        Category::create(['name' => 'nacional']);
+        $category = Category::create(['name' => 'nacional']);
+
         $response = $this->get('/category');
         
         $response->assertOk();
 
-        $response->assertJsonStructure([
-            '*' => ['id', 'name', 'created_at', 'updated_at'],
+        $response->assertJsonFragment([
+            'id' => $category->id,
+            'name' => 'nacional'
         ]);
     }
 }

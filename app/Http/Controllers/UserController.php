@@ -3,24 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pessoa;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    //
+    // CRIAR A TABELA DE USUÁRIO
     public function create(Request $request, Pessoa $pessoa)
     {
         $data = $request->all();
         $pessoa = $pessoa->create($data);
-
+    
         if(!$pessoa){
-            return back()->json(['message' => 'User create failed', 500]);
+            return response()->json(['message' => 'User create failed'], 500);
         }
-        return response()->json(['message' => 'User created successfuly', 200]);
+        return response()->json($pessoa, 201);
     }
+    
 
     public function update(Request $request)
     {
