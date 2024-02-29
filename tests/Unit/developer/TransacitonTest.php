@@ -4,7 +4,7 @@ namespace Tests\Unit\developer;
 
 use App\Models\{
     Category,
-    Pessoa,
+    User,
     Transaction
 };
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -21,24 +21,25 @@ class TransacitonTest extends TestCase
     // SHOW TESTS
      public function test_transaction_list_all()
      {
-        $pessoa = Pessoa::create([
-            'full_name' => 'Vitor Dias',
+        
+        $auth_user = User::create([
+            'name' => 'Gui Santos',
             'cpf' => '011.111.111-01',
-            'reg_date' => '2024-02-28 11:03:44',
-            'email' => 'vd@mail.com',
-            'password' => '1111'
-        ]);
+            'email' => 'gs@mail.com',
+            'password' => '1111',
+            'perfil' => 'developer'
+        ]); 
 
         $category = Category::create(['name' => 'compras']);
 
         Transaction::create([
-            'user' => $pessoa->id,
+            'user' => $auth_user->id,
              'type' => 'payment',
              'category' => $category->name,
              'value' => 599.99
         ]);
 
-        $response = $this->get('/transaction');
+        $response = $this->actingAs($auth_user)->get('/transaction');
 
         $response->assertOk();
         
@@ -49,25 +50,25 @@ class TransacitonTest extends TestCase
  
      public function test_transaction_filter()
      {
-         $pessoa = Pessoa::create([
-             'full_name' => 'Vitor Junior',
-             'cpf' => '044.444.444-01',
-             'reg_date' => '2024-02-28 11:03:44',
-             'email' => 'vj@mail.com',
-             'password' => '4444'
-         ]);
+        $auth_user = User::create([
+            'name' => 'Gui Santos',
+            'cpf' => '011.111.111-01',
+            'email' => 'gs@mail.com',
+            'password' => '1111',
+            'perfil' => 'developer'
+        ]); 
  
          $category = Category::create(['name' => 'ticket']);
  
          Transaction::create([
-             'user' => $pessoa->id,
+             'user' => $auth_user->id,
              'type' => 'payment',
              'category' => $category->name,
              'value' => 100.50
          ]);
  
  
-         $response = $this->get('/transaction/filter/?column=user&value='. $pessoa->id);
+         $response = $this->actingAs($auth_user)->get('/transaction/filter/?column=user&value='. $auth_user->id);
  
          $response->assertOk();
 

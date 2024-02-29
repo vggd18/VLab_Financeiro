@@ -2,55 +2,71 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pessoa;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
     // CRIAR A TABELA DE USUÁRIO
-    public function create(Request $request, Pessoa $pessoa)
-    {
-        $data = $request->all();
-        $pessoa = $pessoa->create($data);
+    public function create(Request $request, User $user)
+    {   
+        if(!Gate::allows('create-user', $user)){
+            abort(403);
+        }
+
+        $data = $request->post();
+        
+        $newUser = $user->create($data);
     
-        if(!$pessoa){
+        if(!$newUser){
             return response()->json(['message' => 'User create failed'], 500);
         }
-        return response()->json($pessoa, 201);
+        return response()->json($newUser, 201);
     }
     
 
-    public function update(Request $request)
+    public function update(Request $request, User $user)
     {
+        if(!Gate::allows('update-user', $user)){
+            abort(403);
+        }
+
+        $req = $request->input();
         $id = $request->id;
-        $user = Pessoa::find($id);
 
-        if($request->has('full_name')){
-            $user->full_name = $request->full_name;
+        $updateUser = User::find($id);
+        if($req['name']){
+            $updateUser->name = $req['name'];
         }
-        if($request->has('cpf')){
-            $user->cpf = $request->cpf;
+        if($req['cpf']){
+            $updateUser->cpf = $req['cpf'];
         }
-        if($request->has('email')){
-            $user->email = $request->email;
+        if($req['email']){
+            $updateUser->email = $req['email'];
         }
-        if($request->has('password')){
-        $user->password = $request->password;
+        if($req['password']){
+            $updateUser->password = $req['password'];
         }
-        $user->save();
-
-        return response()->json($user);
+        $updateUser->save();
+    
+        return response()->json($updateUser);
     }
+    
 
 
-    public function remove(string|int $id)
+    public function remove(string|int $id, User $user)
     {
-        if(!$pessoa = Pessoa::find($id)){
+        if(!Gate::allows('delete-user', $user)){
+            abort(403);
+        }
+
+        if(!$removeUser = User::find($id)){
             return back()->json(['message' => 'User remove failed', 500]);
         }
 
-        $pessoa->delete();
+        $removeUser->delete();
 
         return response()->json(['message' => 'User removed successfuly', 200]);
     }
