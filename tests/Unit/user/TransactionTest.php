@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\user;
 
-use App\Models\{Category, Pessoa};
+use App\Models\{Category, User};
 use App\Models\Transaction;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -18,18 +18,18 @@ class TransactionTest extends TestCase
     // CREATE TESTS
     public function test_create_transaction_succesfully()
     {
-        $pessoa = Pessoa::create([
-            'full_name' => 'Vitor Dias',
+        $auth_user = User::create([
+            'name' => 'Gui Santos',
             'cpf' => '011.111.111-01',
-            'reg_date' => '2024-02-28 11:03:44',
-            'email' => 'vd@mail.com',
-            'password' => '1111'
-        ]);
+            'email' => 'gs@mail.com',
+            'password' => '1111',
+            'perfil' => 'user'
+        ]); 
 
         $category = Category::create(['name' => 'compras']);
 
-        $response = $this->post('/transaction', [
-            'user' => $pessoa->id, 
+        $response = $this->actingAs($auth_user)->post('/transaction', [
+            'user' => $auth_user->id, 
             'category' => $category->name,
             'type' => 'payment',
             'value' => 100.50
@@ -39,7 +39,7 @@ class TransactionTest extends TestCase
         $response->assertJson(['message' => 'Transaction created successfuly']);
 
         $this->assertDatabaseHas('transactions', [
-            'user' => $pessoa->id,
+            'user' => $auth_user->id,
             'category' => $category->name,
             'type' => 'payment',
             'value' => 100.50
@@ -49,24 +49,24 @@ class TransactionTest extends TestCase
     // DESTROY TESTS
     public function test_transaction_removal()
     {
-        $pessoa = Pessoa::create([
-            'full_name' => 'Vitor Dias',
+        $auth_user = User::create([
+            'name' => 'Gui Santos',
             'cpf' => '011.111.111-01',
-            'reg_date' => '2024-02-28 11:03:44',
-            'email' => 'vd@mail.com',
-            'password' => '1111'
-        ]);
+            'email' => 'gs@mail.com',
+            'password' => '1111',
+            'perfil' => 'user'
+        ]); 
 
         $category = Category::create(['name' => 'compras']);
 
         $transaction = Transaction::create([
-            'user' => $pessoa->id, 
+            'user' => $auth_user->id, 
             'category' => $category->name,
             'type' => 'payment',
             'value' => 100.50
         ]);
 
-        $response = $this->delete('/transaction/' . $transaction->id);
+        $response = $this->actingAs($auth_user)->delete('/transaction/' . $transaction->id);
 
         $response->assertOk();
         $response->assertJson(['message' => 'Transaction removed successfuly']);

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('cpf');
-            $table->timestamp('reg_date');
+            $table->string('perfil');
             $table->rememberToken();
             $table->timestamps();
         });

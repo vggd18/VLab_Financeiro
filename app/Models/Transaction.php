@@ -17,9 +17,9 @@ class Transaction extends Model
         'category'
     ];
 
-    public function pessoa() :BelongsTo
+    public function user() :BelongsTo
     {
-        return $this->belongsTo(Pessoa::class);
+        return $this->belongsTo(User::class);
     }
 
     public function category():BelongsTo
