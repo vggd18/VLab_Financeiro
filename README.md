@@ -30,9 +30,9 @@ O sistema permite que os usuários realizem as seguintes ações:
 ## Testes
 
 Para executar os testes, use o comando `php artisan test`.
-![Modelo de Entidade-Relacionamento](images\V_Lab_BD.png)
+![Modelo de Entidade-Relacionamento](https://github.com/vggd18/VLab_Financeiro/blob/52ce60e35d6c3655bf65484aba8d047a1e5bbaf1/images/TEST-VLAB-FINANCEIRO.png)
 
-images\V_Lab_BD.png
+
 ## Modelo de Entidade-Relacionamento
-![Modelo de Entidade-Relacionamento](images\TEST-VLAB-FINANCEIRO.png)
+![Modelo de Entidade-Relacionamento](https://github.com/vggd18/VLab_Financeiro/blob/52ce60e35d6c3655bf65484aba8d047a1e5bbaf1/images/V_Lab_BD.png)
 
