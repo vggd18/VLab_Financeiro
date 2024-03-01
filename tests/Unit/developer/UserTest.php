@@ -75,12 +75,8 @@ class UserTest extends TestCase
         $response->assertStatus(200);
         $response->assertJson(['message' => 'User removed successfuly']);
 
-        $this->assertDatabaseMissing('users', [
+        $this->assertSoftDeleted('users', [
             'id' => $user->id,
-            'name' => 'Martha Reis',
-            'cpf' => '033.333.333-03',
-            'email' => 'mr@mail.com',
-            'perfil' => 'user'
         ]);
     }
 

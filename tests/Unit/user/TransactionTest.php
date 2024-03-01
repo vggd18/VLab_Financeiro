@@ -47,7 +47,7 @@ class TransactionTest extends TestCase
     }
 
     // DESTROY TESTS
-    public function test_transaction_removal()
+    public function test_transaction_deleted()
     {
         $auth_user = User::create([
             'name' => 'Gui Santos',
@@ -71,7 +71,7 @@ class TransactionTest extends TestCase
         $response->assertOk();
         $response->assertJson(['message' => 'Transaction removed successfuly']);
 
-        $this->assertDatabaseMissing('transactions', [
+        $this->assertSoftDeleted('transactions', [
             'id' => $transaction->id
         ]);
     }

@@ -55,7 +55,7 @@ class CategoryTest extends TestCase
         $response->assertStatus(200);
         $response->assertJson(['message' => 'Category removed successfuly']);
 
-        $this->assertDatabaseMissing('categories', [
+        $this->assertSoftDeleted('categories', [
             'id' => $category->id
         ]);
     }

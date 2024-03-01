@@ -19,10 +19,11 @@ return new class extends Migration
             $table->unsignedBigInteger('user')->nullable(false);
             $table->string('category')->nullable(false);
             $table->timestamps();
+            $table->softDeletes();
 
             // FOREIGN KEYS
-            $table->foreign('category')->references('name')->on('categories')->onDelete('set null');
-            $table->foreign('user')->references('id')->on('pessoas')->onDelete('set null');
+            $table->foreign('category')->references('name')->on('categories');
+            $table->foreign('user')->references('id')->on('users');
         });
     }
 
