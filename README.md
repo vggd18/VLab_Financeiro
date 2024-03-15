@@ -1,4 +1,4 @@
-# Projeto de Monitoramento Financeiro=
+# Projeto de Monitoramento Financeiro
 
 Este projeto foi desenvolvido como parte do processo seletivo da VLAB. O objetivo é implementar um sistema de monitoramento financeiro usando Laravel e um banco de dados relacional.
 
